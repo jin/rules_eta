@@ -9,7 +9,7 @@ def _eta_library_impl(ctx):
     args.add_all(["-metricsdir", "metrics"])
     args.add_all(["-o", ctx.outputs._jar.path])
     args.add_all(["-hidir", headers_dir.path])
-    args.add_all([f.short_path for f in ctx.files.srcs])
+    args.add_all(ctx.files.srcs)
 
     # Regular compile action
     ctx.actions.run(
