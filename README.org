@@ -55,6 +55,7 @@ The 101st prime is 547
 - [X] Compatible with =--experimental_strict_action_env=.
 - [X] interoperability with other JVM rules (=JavaInfo=).
 - [X] =bazel run //examples/basic:main=.
+- [X] Generate =.hi= files in the =package/header= directory.
 - [ ] API design. Sync with =rules_haskell=? =eta_library= as a drop in replacement to =haskell_library= and vice versa?
 - [ ] Drop the dependency on =--action_env=HOME=
 - [ ] =eta_library.deps= / figure out provider story.

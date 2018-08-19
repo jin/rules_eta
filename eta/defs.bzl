@@ -1,12 +1,15 @@
 def _eta_library_impl(ctx):
+
     eta_inputs = [ctx.file._eta]
+
+    metrics_dir = ctx.actions.declare_directory("metrics")
+    headers_dir = ctx.actions.declare_directory("headers")
 
     args = ctx.actions.args()
     args.add_all(["-metricsdir", "metrics"])
     args.add_all(["-o", ctx.outputs._jar.path])
+    args.add_all(["-hidir", headers_dir.path])
     args.add_all([f.short_path for f in ctx.files.srcs])
-
-    metrics_dir = ctx.actions.declare_directory("metrics")
 
     # Regular compile action
     ctx.actions.run(
@@ -14,14 +17,21 @@ def _eta_library_impl(ctx):
         executable = ctx.executable._eta,
         inputs = ctx.files.srcs + eta_inputs,
         mnemonic = "EtaCompile",
-        outputs = [ctx.outputs._jar, metrics_dir],
+        outputs = [
+            ctx.outputs._jar,
+            metrics_dir,
+            headers_dir,
+        ],
         progress_message = "Compiling %s using Eta" % ctx.attr.name,
         use_default_shell_env = True, # TODO: Needed to pass `--action_env=HOME`. Try not to use default shell env for hermeticity
     )
 
     return [
         DefaultInfo(
-            files = depset([ctx.outputs._jar]),
+            files = depset([
+                ctx.outputs._jar,
+                headers_dir,
+            ]),
         ),
         JavaInfo(
             output_jar = ctx.outputs._jar,
