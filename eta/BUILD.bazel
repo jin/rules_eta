@@ -1,6 +1,1 @@
-exports_files([
-    "defs.bzl",
-    "etlas.BUILD",
-    "eta.BUILD",
-    "etlas",
-])
+exports_files(["defs.bzl"])
