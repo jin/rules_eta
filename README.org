@@ -1,0 +1,61 @@
+* rules_eta
+
+* Action items [0/11]
+
+- [ ] http_file rule to fetch etlas for Windows, macOS and Linux
+- [ ] repository rule to initiate =etlas update= 
+- [x] Use eta directly instead of etlas
+- [ ] Compatible with =--experimental_strict_action_env=
+- [ ] interoperability with rules_haskell
+- [ ] interoperability with other JVM rules (=JavaInfo=)
+- [ ] =eta_test= 
+- [ ] =eta_library= 
+- [ ] =eta_binary.deps= and =eta_library.deps=
+
+* Notes
+
+** Getting =eltas=
+
+From https://eta-lang.org/docs/user-guides/eta-user-guide/installation/etlas
+
+#+BEGIN_QUOTE
+=etlas= is the build tool, =eta= is the compiler
+
+[[https://cdnverify.eta-lang.org/eta-binaries/etlas-1.4.0.0/binaries/x86_64-linux/etlas][Linux]]
+ 
+[[https://cdnverify.eta-lang.org/eta-binaries//etlas-1.4.0.0/binaries/x86_64-osx/etlas][Mac]]
+
+Note: On Safari the extension of the etlas binary is dms when it shouldn't have an extension at all. You can fix this by manually renaming the file to avoid the .dms extension.
+
+[[https://cdnverify.eta-lang.org/eta-binaries/etlas-1.4.0.0/binaries/x86_64-windows/etlas.exe][Windows]]
+
+If on Linux or OS X, give the program executable permissions.
+
+#+BEGIN_SRC 
+$ chmod +x /path/to/etlas
+#+END_SRC
+
+Place the downloaded binary in in your $PATH and verify that it is.
+
+#+BEGIN_SRC 
+$ etlas --version
+#+END_SRC
+
+Make sure java is on the $PATH.
+
+#+BEGIN_SRC 
+$ java -version
+#+END_SRC
+
+Ensure that you have updated to the latest version of Eta.
+
+#+BEGIN_SRC 
+$ etlas update
+$ etlas select latest
+#+END_SRC
+
+As soon as you start using etlas, eta and the standard libraries will be downloaded automatically for you on demand.
+#+END_QUOTE
+
+
+

@@ -1,0 +1,6 @@
+exports_files([
+    "defs.bzl",
+    "etlas.BUILD",
+    "eta.BUILD",
+    "etlas",
+])
