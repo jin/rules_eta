@@ -49,7 +49,7 @@ INFO: Build completed successfully, 1 total action
 The 101st prime is 547
 #+END_SRC
 
-** Features [5/13]
+** Features [6/15]
 - [X] =eta_library= rule.
 - [X] Use =eta= to compile directly instead of =etlas=.
 - [X] Compatible with =--experimental_strict_action_env=.
@@ -57,10 +57,11 @@ The 101st prime is 547
 - [X] =bazel run //examples/basic:main=.
 - [X] Generate =.hi= files in the =package/header= directory.
 - [ ] API design. Sync with =rules_haskell=? =eta_library= as a drop in replacement to =haskell_library= and vice versa?
-- [ ] Drop the dependency on =--action_env=HOME=
 - [ ] =eta_library.deps= / figure out provider story.
+- [ ] Drop the dependency on =--action_env=HOME=
 - [ ] =eta_binary= / =bazel run //eta:binary=.
 - [ ] =eta_test=?
+- [ ] =java_library= -> =eta_library= -> =java_library= sandwich
 - [ ] http_file rule to fetch etlas/eta for Windows, macOS and Linux.
 - [ ] turn =eta_repositories= into a proper =repository_rule=.
 - [ ] interoperability with =rules_haskell=.
