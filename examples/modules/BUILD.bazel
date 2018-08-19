@@ -1,0 +1,12 @@
+load("@build_bazel_rules_eta//eta:defs.bzl", "eta_library")
+
+eta_library(
+    name = "main-eta",
+    srcs = ["Main.hs", "Primes.hs"],
+)
+
+java_binary(
+    name = "main",
+    runtime_deps = [":main-eta"],
+   main_class = "eta.main",
+)
