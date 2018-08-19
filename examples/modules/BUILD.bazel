@@ -8,5 +8,5 @@ eta_library(
 java_binary(
     name = "main",
     runtime_deps = [":main-eta"],
-   main_class = "eta.main",
+    main_class = "eta.main",
 )
