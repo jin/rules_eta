@@ -1,61 +1,65 @@
 * rules_eta
 
-* Action items [0/11]
+[[https://eta-lang.org/][Eta]] rules for Bazel.
 
-- [ ] http_file rule to fetch etlas for Windows, macOS and Linux
-- [ ] repository rule to initiate =etlas update= 
-- [x] Use eta directly instead of etlas
-- [ ] Compatible with =--experimental_strict_action_env=
-- [ ] interoperability with rules_haskell
-- [ ] interoperability with other JVM rules (=JavaInfo=)
-- [ ] =eta_test= 
-- [ ] =eta_library= 
-- [ ] =eta_binary.deps= and =eta_library.deps=
-
-* Notes
-
-** Getting =eltas=
-
-From https://eta-lang.org/docs/user-guides/eta-user-guide/installation/etlas
+From the homepage:
 
 #+BEGIN_QUOTE
-=etlas= is the build tool, =eta= is the compiler
+_What is Eta?_
 
-[[https://cdnverify.eta-lang.org/eta-binaries/etlas-1.4.0.0/binaries/x86_64-linux/etlas][Linux]]
- 
-[[https://cdnverify.eta-lang.org/eta-binaries//etlas-1.4.0.0/binaries/x86_64-osx/etlas][Mac]]
-
-Note: On Safari the extension of the etlas binary is dms when it shouldn't have an extension at all. You can fix this by manually renaming the file to avoid the .dms extension.
-
-[[https://cdnverify.eta-lang.org/eta-binaries/etlas-1.4.0.0/binaries/x86_64-windows/etlas.exe][Windows]]
-
-If on Linux or OS X, give the program executable permissions.
-
-#+BEGIN_SRC 
-$ chmod +x /path/to/etlas
-#+END_SRC
-
-Place the downloaded binary in in your $PATH and verify that it is.
-
-#+BEGIN_SRC 
-$ etlas --version
-#+END_SRC
-
-Make sure java is on the $PATH.
-
-#+BEGIN_SRC 
-$ java -version
-#+END_SRC
-
-Ensure that you have updated to the latest version of Eta.
-
-#+BEGIN_SRC 
-$ etlas update
-$ etlas select latest
-#+END_SRC
-
-As soon as you start using etlas, eta and the standard libraries will be downloaded automatically for you on demand.
+Eta is a pure, lazy, strongly typed functional programming language on the JVM. It brings two big ecosystems, the JVM and Haskell, together. This allows you to harness the best of both ecosystems to build your applications quickly and effectively. Eta's concurrency support helps you to build highly scalable systems.
 #+END_QUOTE
 
+** Status
 
+Highly experimental. This is currently a prototype and APIs will most definitely change.
 
+** Try it out
+
+You'll first need to a dev build of the =eta= compiler that contains [[https://github.com/typelead/eta/commit/f37e972b6a6d2ad6140718afbf0a4eb2612f51d0][this change]] from https://github.com/typelead/eta.
+
+#+BEGIN_SRC 
+eta $ git submodule sync
+eta $ git submodule update --init --recursive
+eta $ ./install.sh
+#+END_SRC
+
+This should end up in =$HOME/.local/bin=. Modify =eta_repositories.bin_path= in the =WORKSPACE= file accordingly.
+
+To build the example, run:
+
+#+BEGIN_SRC 
+$ bazel build //examples/basic:main-eta --action_env=HOME
+#+END_SRC
+
+To run the example, run:
+
+#+BEGIN_SRC 
+$ bazel run //examples/basic:main --action_env=HOME
+INFO: Build options have changed, discarding analysis cache.
+INFO: Analysed target //examples/basic:main (15 packages loaded).
+INFO: Found 1 target...
+Target //examples/basic:main up-to-date:
+  bazel-bin/examples/basic/main.jar
+  bazel-bin/examples/basic/main
+INFO: Elapsed time: 3.868s, Critical Path: 0.00s
+INFO: 0 processes.
+INFO: Build completed successfully, 1 total action
+INFO: Build completed successfully, 1 total action
+The 101st prime is 547
+#+END_SRC
+
+** Features [5/13]
+- [X] =eta_library= rule.
+- [X] Use =eta= to compile directly instead of =etlas=.
+- [X] Compatible with =--experimental_strict_action_env=.
+- [X] interoperability with other JVM rules (=JavaInfo=).
+- [X] =bazel run //examples/basic:main=.
+- [ ] API design. Sync with =rules_haskell=? =eta_library= as a drop in replacement to =haskell_library= and vice versa?
+- [ ] Drop the dependency on =--action_env=HOME=
+- [ ] =eta_library.deps= / figure out provider story.
+- [ ] =eta_binary= / =bazel run //eta:binary=.
+- [ ] =eta_test=?
+- [ ] http_file rule to fetch etlas/eta for Windows, macOS and Linux.
+- [ ] turn =eta_repositories= into a proper =repository_rule=.
+- [ ] interoperability with =rules_haskell=.

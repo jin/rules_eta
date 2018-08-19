@@ -1,26 +1,12 @@
-load("@build_bazel_rules_eta//eta:defs.bzl", "eta_binary")
-load("@io_tweag_rules_haskell//haskell:haskell.bzl", "haskell_binary", "haskell_import")
+load("@build_bazel_rules_eta//eta:defs.bzl", "eta_library")
 
-eta_binary(
+eta_library(
     name = "main-eta",
     srcs = ["Main.hs"],
 )
 
-haskell_import(
-    name = "base",
-    package = "base",
+java_binary(
+    name = "main",
+    runtime_deps = [":main-eta"],
+    main_class = "eta.main",
 )
-
-haskell_binary(
-    name = "main-haskell",
-    srcs = ["Main.hs"],
-    deps = [":base"]
-)
-
-# genrule(
-#     name = "main_genrule",
-#     srcs = ["Main.hs"],
-#     outs = ["Main.jar"],
-#     tools = ["@etlas//:binaries/cdnverify.eta-lang.org/eta-0.8.6.1/binaries/x86_64-osx/eta"],
-#     cmd = "$(location @etlas//:binaries/cdnverify.eta-lang.org/eta-0.8.6.1/binaries/x86_64-osx/eta) $<",
-# )
